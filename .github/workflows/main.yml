@@ -6,6 +6,7 @@ jobs:
   build:
 
     runs-on: windows-latest
+    timeout-minutes: 9999
 
     steps:
     - name: Download
@@ -23,3 +24,9 @@ jobs:
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
     - name: Create Tunnel
       run: .\ngrok\ngrok.exe tcp 3389
+    - name: Connecting to your RDP.
+      run: cmd /c start.bat
+    - name: RDP is ready!
+      run: | 
+        Invoke-WebRequest https://raw.githubusercontent.com/msraj1584/msrajserv/main/loop.ps1 -OutFile loop.ps1
+        ./loop.ps1
